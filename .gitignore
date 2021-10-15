@@ -1,0 +1,13 @@
+Topics/
+/.gradle/
+course-info.yaml
+course-remote-info.yaml
+/Code Sharing Platform/*
+!/Code Sharing Platform/task
+/Code Sharing Platform/task/*
+!/Code Sharing Platform/task/src
+!/Code Sharing Platform/task/resources
+!/Code Sharing Platform/task/build.gradle
+/util/
+/.idea/
+
