@@ -1,18 +1,23 @@
 package platform.codeutils;
 
+import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CodeProvider {
 
-    private String code = "public static void main(String[] args) {\n" +
-            "    SpringApplication.run(CodeSharingPlatform.class, args);\n" +
-            "}";
 
+    private CodeSnippet codeSnippet;
+
+    @Autowired
+    public CodeProvider (CodeSnippet codeSnippet) {
+        this.codeSnippet= codeSnippet;
+    }
 
     public String getCode() {
-        return code;
+        return codeSnippet.getCode();
     }
 
     public String getCodeWrappedInHtml() {
@@ -22,15 +27,23 @@ public class CodeProvider {
                 "</head>\n" +
                 "<body>\n" +
                 "    <pre>\n" +
-                code +
+                codeSnippet.getCode() +
                 "</pre>\n" +
                 "</body>\n" +
                 "</html>";
 
     }
 
+    public String getCodeAsJson() {
+        JsonObject codeSnippetJson = new JsonObject();
+        codeSnippetJson.addProperty("code", codeSnippet.getCode());
+        codeSnippetJson.addProperty("date", codeSnippet.getLastModified().toString());
+
+        return codeSnippetJson.toString();
+    }
+
     public void setCode(String code) {
-        this.code=code;
+        codeSnippet.setCode(code);
     }
 
 }
