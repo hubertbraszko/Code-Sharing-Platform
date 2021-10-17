@@ -1,35 +1,27 @@
 package platform.controller;
 
 import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import platform.codeutils.CodeProvider;
 
 @RestController
 public class CodeController {
 
-    private String code = "public static void main(String[] args) {\n" +
-            "    SpringApplication.run(CodeSharingPlatform.class, args);\n" +
-            "}";
+    @Autowired
+    private CodeProvider codeProvider;
 
-    private String codeWrappedInHtml =
-            "<html>\n" +
-                    "<head>\n" +
-                    "    <title>Code</title>\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "    <pre>\n" +
-                    code +
-                    "</pre>\n" +
-                    "</body>\n" +
-                    "</html>";
+
+
 
 
     @GetMapping("api/code")
     public ResponseEntity<String> getCodeInJson() {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("code",code);
+        jsonObject.addProperty("code",codeProvider.getCode());
 
         return ResponseEntity.ok(jsonObject.toString());
 
@@ -38,7 +30,7 @@ public class CodeController {
     @GetMapping("/code")
     public ResponseEntity<String> getCodeRaw() {
 
-        return ResponseEntity.ok(codeWrappedInHtml);
+        return ResponseEntity.ok(codeProvider.getCodeWrappedInHtml());
 
     }
 
