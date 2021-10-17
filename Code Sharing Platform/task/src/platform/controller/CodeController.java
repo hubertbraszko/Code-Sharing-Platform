@@ -25,7 +25,7 @@ public class CodeController {
     public ResponseEntity<String> postNewCode(@RequestBody CodeSnippet codeSnippet) {
         codeProvider.setCode(codeSnippet.getCode());
 
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("{}");
     }
 
 

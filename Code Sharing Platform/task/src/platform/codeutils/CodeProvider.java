@@ -27,7 +27,8 @@ public class CodeProvider {
                 "</head>\n" +
                 "<body>\n" +
                 "    <pre>\n" +
-                codeSnippet.getCode() +
+                "<pre id=\"code_snippet\">" + codeSnippet.getCode() + "</pre>\n" +
+                "<span id=\"load_date\">" + codeSnippet.getLastModified().toString() + "</span>" +
                 "</pre>\n" +
                 "</body>\n" +
                 "</html>";
