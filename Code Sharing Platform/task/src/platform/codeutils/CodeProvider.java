@@ -16,6 +16,10 @@ public class CodeProvider {
         this.codeSnippet= codeSnippet;
     }
 
+    public CodeSnippet getCodeSnippet() {
+        return codeSnippet;
+    }
+
     public String getCode() {
         return codeSnippet.getCode();
     }

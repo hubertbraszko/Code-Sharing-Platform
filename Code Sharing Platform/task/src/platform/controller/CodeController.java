@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import platform.codeutils.CodeProvider;
 import platform.codeutils.CodeSnippet;
@@ -37,9 +35,11 @@ public class CodeController {
     }
 
     @GetMapping("/code")
-    public ResponseEntity<String> getCodeRaw() {
-
-        return ResponseEntity.ok(codeProvider.getCodeWrappedInHtml());
+    public String getCodeRaw(Model model) {
+        model.addAttribute("snippet", codeProvider.getCodeSnippet());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("codeSnippet.ftlh");
+        return "codeSnippet";
 
     }
 
