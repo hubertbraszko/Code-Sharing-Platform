@@ -35,11 +35,11 @@ public class CodeController {
     }
 
     @GetMapping("/code")
-    public String getCodeRaw(Model model) {
+    public ModelAndView getCodeRaw(Model model) {
         model.addAttribute("snippet", codeProvider.getCodeSnippet());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("codeSnippet.ftlh");
-        return "codeSnippet";
+        modelAndView.setViewName("codeSnippet.html");
+        return modelAndView;
 
     }
 

@@ -1,0 +1,11 @@
+* {
+  max-width: 500px;
+  margin: auto;
+}
+
+body {
+  font-family: sans-serif
+  background-color: rgb(94,92,81);
+  border-top: #1098ad solid 10px;
+  border-bottom: #1098ad solid 10px;
+}
