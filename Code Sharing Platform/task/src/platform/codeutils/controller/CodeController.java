@@ -1,4 +1,4 @@
-package platform.controller;
+package platform.codeutils.controller;
 
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import platform.codeutils.CodeProvider;
 import platform.codeutils.CodeSnippet;
+
+import java.util.List;
 
 
 @Controller
@@ -25,7 +27,7 @@ public class CodeController {
         CodeSnippet newCodeSnippet = codeProvider.save(codeSnippet);
 
         JsonObject json = new JsonObject();
-        json.addProperty("id", newCodeSnippet.getId());
+        json.addProperty("id", newCodeSnippet.getId().toString());
 
         return ResponseEntity.ok(json.toString());
     }
@@ -38,6 +40,10 @@ public class CodeController {
 
     }
 
+    @GetMapping("/api/code/latest")
+    public ResponseEntity<List<CodeSnippet>> getLatestSnippetsInJson() {
+        return ResponseEntity.ok(codeProvider.get10LatestCodeSnippets());
+    }
 
 
     @GetMapping("/code/{id}")
@@ -58,7 +64,7 @@ public class CodeController {
 
 
     @GetMapping("/code/latest")
-    public ModelAndView getlatestSnippets(Model model) {
+    public ModelAndView getLatestSnippets(Model model) {
         model.addAttribute("snippets",codeProvider.get10LatestCodeSnippets());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("latestSnippets.html");

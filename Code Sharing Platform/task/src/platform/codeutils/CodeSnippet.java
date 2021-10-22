@@ -1,6 +1,8 @@
 package platform.codeutils;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ public class CodeSnippet {
             "    SpringApplication.run(CodeSharingPlatform.class, args);\n" +
             "}";
 
+    @JsonProperty("date")
     private LocalDateTime lastModified;
 
     public Long getId() {
