@@ -21,22 +21,26 @@ public class CodeController {
 
     @PostMapping("/api/code/new")
     public ResponseEntity<String> postNewCode(@RequestBody CodeSnippet codeSnippet) {
-        codeProvider.setCode(codeSnippet.getCode());
+        //codeProvider.setCode(codeSnippet.getCode());
+        CodeSnippet newCodeSnippet = codeProvider.save(codeSnippet);
 
-        return ResponseEntity.ok("{}");
+        JsonObject json = new JsonObject();
+        json.addProperty("id", newCodeSnippet.getId());
+
+        return ResponseEntity.ok(json.toString());
     }
 
 
-    @GetMapping("/api/code")
-    public ResponseEntity<String> getCodeInJson() {
+    @GetMapping("/api/code/{id}")
+    public ResponseEntity<CodeSnippet> getCodeInJson(@PathVariable long id) {
 
-        return ResponseEntity.ok(codeProvider.getCodeAsJson());
+        return ResponseEntity.ok(codeProvider.findCodeSnippetById(id));
 
     }
 
-    @GetMapping("/code")
-    public ModelAndView getCodeRaw(Model model) {
-        model.addAttribute("snippet", codeProvider.getCodeSnippet());
+    @GetMapping("/code/{id}")
+    public ModelAndView getCodeRaw(@PathVariable long id, Model model) {
+        model.addAttribute("snippet", codeProvider.findCodeSnippetById(id));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("codeSnippet.html");
         return modelAndView;

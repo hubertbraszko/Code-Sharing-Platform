@@ -1,17 +1,35 @@
 package platform.codeutils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Component
+
+
+@Entity
+@Table(name = "codeSnippets")
 public class CodeSnippet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
+    private Long id;
 
     private String code = "public static void main(String[] args) {\n" +
             "    SpringApplication.run(CodeSharingPlatform.class, args);\n" +
             "}";
 
     private LocalDateTime lastModified;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public CodeSnippet() {
         this.lastModified = LocalDateTime.now();
