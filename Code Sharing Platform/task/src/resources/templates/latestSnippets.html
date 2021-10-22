@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Code</title>
+    <link th:href="@{/css/codeSnippet.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class= "code">
+    <tr th:if="${snippets.empty}">
+     <td colspan="2"> No Snippets Available </td>
+    </tr>
+    <tr th:each="snippet : ${snippets}">
+        <div class= "code">
+            <span id="load_date" th:text="${snippet.getLastModified()}"></span>
+            <pre id="code_snippet"><code th:text="${snippet.getCode()}"></code></pre>
+        </div>
+    </tr>
+
+</body>
+</html>

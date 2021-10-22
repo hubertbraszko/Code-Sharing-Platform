@@ -8,17 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class CodeProvider {
 
 
     private final CodeRepository codeRepository;
 
-    //private CodeSnippet codeSnippet;
+
 
     @Autowired
     public CodeProvider ( CodeRepository codeRepository) {
-       // this.codeSnippet= codeSnippet;
+
         this.codeRepository = codeRepository;
     }
 
@@ -33,39 +35,9 @@ public class CodeProvider {
                                 "Code not found for id = " + id));
     }
 
-//    public CodeSnippet getCodeSnippet() {
-//        return codeSnippet;
-//    }
-//
-//    public String getCode() {
-//        return codeSnippet.getCode();
-//    }
+    public List<CodeSnippet> get10LatestCodeSnippets() {
+        return codeRepository.findTop10ByOrderByIdDesc();
+    }
 
-//    public String getCodeWrappedInHtml() {
-//        return "<html>\n" +
-//                "<head>\n" +
-//                "    <title>Code</title>\n" +
-//                "</head>\n" +
-//                "<body>\n" +
-//                "    <pre>\n" +
-//                "<pre id=\"code_snippet\">" + codeSnippet.getCode() + "</pre>\n" +
-//                "<span id=\"load_date\">" + codeSnippet.getLastModified().toString() + "</span>" +
-//                "</pre>\n" +
-//                "</body>\n" +
-//                "</html>";
-//
-//    }
-
-//    public String getCodeAsJson() {
-//        JsonObject codeSnippetJson = new JsonObject();
-//        codeSnippetJson.addProperty("code", codeSnippet.getCode());
-//        codeSnippetJson.addProperty("date", codeSnippet.getLastModified().toString());
-//
-//        return codeSnippetJson.toString();
-//    }
-//
-//    public void setCode(String code) {
-//        codeSnippet.setCode(code);
-//    }
 
 }

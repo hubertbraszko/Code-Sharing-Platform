@@ -38,6 +38,8 @@ public class CodeController {
 
     }
 
+
+
     @GetMapping("/code/{id}")
     public ModelAndView getCodeRaw(@PathVariable long id, Model model) {
         model.addAttribute("snippet", codeProvider.findCodeSnippetById(id));
@@ -54,5 +56,13 @@ public class CodeController {
         return modelAndView;
     }
 
+
+    @GetMapping("/code/latest")
+    public ModelAndView getlatestSnippets(Model model) {
+        model.addAttribute("snippets",codeProvider.get10LatestCodeSnippets());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("latestSnippets.html");
+        return modelAndView;
+    }
 
 }
